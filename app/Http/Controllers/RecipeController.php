@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
+use App\Models\Category;
 use Hamcrest\Description;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -35,6 +36,15 @@ class RecipeController extends Controller
      */
     public function index()
     {
+        $recipes = Recipe::select('recipes.id', 'recipes.title', 'recipes.description', 'recipes.created_at', 'recipes.image', 'users.name')
+            ->join('users', 'users.id', '=', 'recipes.user_id')
+            ->orderBy('recipes.created_at', 'desc')
+            ->get();
+
+        $categories = Category::all();
+
+        return view('recipes.index', compact('recipes','categories'));
+
     }
 
     /**
