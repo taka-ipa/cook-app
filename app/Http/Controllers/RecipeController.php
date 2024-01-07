@@ -89,14 +89,17 @@ class RecipeController extends Controller
      */
     public function show(string $id)
     {
-        $recipe = Recipe::with(['ingredients', 'steps', 'reviews'])
+        $recipe = Recipe::with(['ingredients', 'steps', 'reviews.user', 'user'])
             ->where('recipes.id', $id)
-            ->get();
-        $recipe = $recipe[0];
+            ->first();
         $recipe_recode = Recipe::find($id);
         $recipe_recode->increment('views');
+        // $ingredients = Ingredient::where('recipe_id', $recipe['id'])->get();
+        // $steps = Step::where('recipe_id', $recipe['id'])->get();
         // リレーションで材料とステップを取得
-        // dd($recipe);
+    //    dd($recipe);
+
+        return view('recipes.show', compact('recipe'));
     }
 
     /**
