@@ -21,9 +21,10 @@
     </head>
     <body class="font-sans antialiased background-color">
         <div class="min-h-screen">
-            <!-- ここに共通ヘッダーコンポーネントを読み込む -->
+            <!-- ここに共通ヘッダーのコンポーネントを読み込む -->
             @include('layouts.announce-header')
             @include('layouts.global-header')
+            @include('flash::message')
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -35,7 +36,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="container mx-auto pt-8">
+            <main class="container mx-auto py-8">
                 {{ $slot }}
             </main>
         </div>
